@@ -1,6 +1,7 @@
 package com.example.calculator
 
 import android.os.Bundle
+import android.view.HapticFeedbackConstants
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
@@ -19,8 +20,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
+    private fun vibrateButton(view: View) {
+        view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+    }
 
     fun onDigitclick(view: View) {
+        vibrateButton(view)
         try {
             val clickedBtn = view as Button
             binding.textView.append(clickedBtn.text)
@@ -31,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onDecimalpoint(view: View) {
+        vibrateButton(view)
         if (isLastInputNumber && !hasDotInTextView) {
             binding.textView.append(".")
             hasDotInTextView = true
@@ -39,6 +45,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onopratorClicked(view: View) {
+        vibrateButton(view)
         try {
             if (isLastInputNumber) {
                 val clickedBtn = view as Button
@@ -61,6 +68,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun clearBtn(view: View) {
+        vibrateButton(view)
         binding.textView.text = ""
         operatorClicked = null
         hasDotInTextView = false
@@ -68,6 +76,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun equleisclicked(view: View) {
+        vibrateButton(view)
         try {
             val expression = binding.textView.text.toString()
             if (expression.isEmpty() || operatorClicked == null) {
